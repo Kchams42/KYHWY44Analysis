@@ -1,4 +1,3 @@
-from unittest import result
 import pandas as pd
 import numpy
 import matplotlib
@@ -23,12 +22,14 @@ df = df[df.columns[useful_columns]]
 #print (new_df['MotorVehiclesInvolved'].value_counts())
 #print (new_df.sum())    
 df = df.groupby(['year']).sum()
-#df = df.T
-#df2=df2.T
+df2 = df2.groupby(['year']).sum()
+#print (df2)
+df = df.T
+df2=df2.T
 #print (df2)
 #print (df)
-
-
+result=pd.concat([df, df2])
+print (result)
 
 
 
