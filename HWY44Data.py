@@ -1,35 +1,48 @@
+import webbrowser
 import pandas as pd
-import numpy
-import matplotlib
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 #importing data
-df=pd.read_csv('venv\Analysis\Incident.txt')
-df2=pd.read_csv('venv\Analysis\Registration data .csv')
+df=pd.read_csv('Incident.txt')
+df2=pd.read_csv('Registration data .csv')
+print (df2)
+# Changing the date format to only show the year
 df['year'] =pd.DatetimeIndex(df['CollisionDate']).year
+
 #Looking at different parts of the data set.
     #print (df.head)
     #print (df.info())
     #print (df.describe)
     #print (df['AgencyName'].value_counts())
 
+# Pulling the needed columns from the data. 
 useful_columns = [39,22,23,24,]
 df = df[df.columns[useful_columns]]
-#print (df)
-#print (new_df.head)
-#print (new_df.info())
-#print ( new_df.describe)
-#print (new_df.shape)
-#print (new_df['MotorVehiclesInvolved'].value_counts())
-#print (new_df.sum())    
+
+#grouping each data set by year  
 df = df.groupby(['year']).sum()
 df2 = df2.groupby(['year']).sum()
-#print (df2)
+
+
+
+#transforming the data sets 
 df = df.T
 df2=df2.T
-#print (df2)
-#print (df)
+
+#Combine the two data sets
 result=pd.concat([df, df2])
-print (result)
 
+# remove the last column containint incomplete data
+result = result.iloc[: , :-1]
 
-
+#double checking that I do have a dataframe
+if isinstance(result, pd.DataFrame):
+    print ('YES!')
+result.set_index('year', inplace=True)
+#printing the data frame to a web browser
+with open('str.html', 'w') as f:
+    result.to_html(f)
+filename = 'str.html'
+webbrowser.open_new_tab(filename)
