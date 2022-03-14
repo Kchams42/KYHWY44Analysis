@@ -4,8 +4,21 @@ In 2004 there was a study by the state looking at options to improve the HWY, bu
 is getting worse each year.  I drive almost exclusively on HWY 44 to get to my work each day, about 10 miles one way.  My average drive time is 20-30 minutes, with 0 stop signs 
 and 1 traffic light.  So my goal is to see if there is a correlation between the increased population growth and the number of accidents.
 
-For this program you will need:
+For this program you will need to use pip to install:
     Pandas
     Numpy
     Matplotlib
+    webbrowser
 
+This project is done in a virutal enviroment.  
+
+The criteria that I met for this project are as follows
+    1.Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code
+    2.Read data from an external file, such as text, JSON, CSV, etc, and use that data in your application.
+    3.Visualize data in a graph, chart, or other visual representation of data.
+    4.The program should utilize a virtual environment and document library dependencies in a requirements.txt file.
+
+You can also find a file called Webdata.PK
+
+This program is the begining of an extension of this project that would allow the user to select their own specific county and roadway.   This program utilizes Selenium, and
+I will continue to work on it.
