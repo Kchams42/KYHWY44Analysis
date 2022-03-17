@@ -32,7 +32,7 @@ df2=df2.T
 #Combine the two data sets
 result=pd.concat([df, df2])
 
-# remove the last column containint incomplete data
+# remove the last column that contained incomplete data
 result = result.iloc[: , :-1]
  #Choosing which rows to compare
 analysis_data= result.iloc[[0,17]]
