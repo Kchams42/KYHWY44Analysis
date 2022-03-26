@@ -1,3 +1,4 @@
+from zipfile import ZipFile
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -8,11 +9,20 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.common.action_chains import ActionChains
+import glob
+import pandas as pd
+import os
+import zipfile
+import webbrowser
+import matplotlib.pyplot as plt
 
-county = input('Please select a county from Kentucky')
-print(county)
-road = input('Please provide the road number')
-print(road)
+#Collecting user data
+print('This program will show crash data for specific roadways in specific counties in Kentucky.\n')
+county = input('Please select a county from Kentucky\n')
+road = input('Please provide a valid road number in the county selected above. (ex: shelbyville road would be just 60)\n')
+  
+#setting up the webdriver and url(*Stretch Goal-Using a webscraper*)
+time.sleep(1)
 options = Options()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-extensions')
@@ -23,13 +33,11 @@ options.add_experimental_option('detach', True)
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 url = "http://crashinformationky.org/AdvancedSearch"
-
-
-
 driver.get(url)
+driver.maximize_window()
 time.sleep(1)
 
-
+#filling  in the date range
 WebDriverWait(driver, 30).until(ec.visibility_of_element_located((By.XPATH, "/html/body/div[1]/div[3]/form/div[2]/div/div[1]/div[2]/div[2]/div/div[3]/a"))).click()
 time.sleep(1)
 WebDriverWait(driver, 30).until(ec.visibility_of_element_located((By.XPATH, "/html/body/div[10]/div/div[3]"))).click()
@@ -39,7 +47,7 @@ time.sleep(1)
 field = driver.find_element(By.XPATH, "/html/body/div[1]/div[3]/form/div[2]/div/div[1]/div[2]/div[2]/div/div[2]/div[2]/div/div[3]/input")
 field.send_keys(Keys.CONTROL + "a")
 field.send_keys(Keys.DELETE)
-field.send_keys('01/01/2016')
+field.send_keys('01/01/2013')
 field.send_keys(Keys.ENTER)
 time.sleep(1)
 range = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[1]/div[2]/div[2]/div/div[2]/div[2]/div/div[2]/a')
@@ -47,6 +55,8 @@ range.click()
 between = driver.find_element(By.XPATH, '/html/body/div[11]/div/div[9]')
 between.click()
 time.sleep(1)
+
+#selecting the users county choice
 add_property= driver.find_element(By.XPATH, '//*[@id="QueryPanel"]/div[3]/a')
 add_property.click()
 county_name = driver.find_element(By.XPATH, '//*[@id="QueryPanel-EntitiesMenu"]/div/div[4]')
@@ -61,6 +71,8 @@ time.sleep(1)
 county_final = driver.find_element(By.XPATH, '//*[@id="QueryPanel-cond-2-EditorMenu"]/div[2]/div')
 time.sleep(1)
 county_final.click()
+
+#adding in the roadway number
 add_property= driver.find_element(By.XPATH, '//*[@id="QueryPanel"]/div[3]/a')
 add_property.click()
 time.sleep(1)
@@ -76,11 +88,57 @@ time.sleep(1)
 enter_value = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[1]/div[2]/div[2]/div/div[2]/div[2]/div[3]/div[3]/a')
 enter_value.click()
 time.sleep(1)
-#roadway_choice = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[1]/div[2]/div[2]/div')
 actions = ActionChains(driver)
 actions.send_keys(road)
 actions.send_keys(Keys.ENTER)
 actions.perform()
 time.sleep(1)
+
+#executing the search
 execute= driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[1]/div[1]/div[2]/div[2]')
 execute.click()
+time.sleep(35)
+
+#selecting export method
+driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[2]/ul/li[3]/a').click()
+time.sleep(5)
+driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[2]/div/div[3]/div[2]/div/div/div[2]/div/div/div/div/div[5]/div/input').click()
+
+#exporting the file
+driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[2]/div/div[3]/div[2]/div/div/div[3]/div/a').click()
+time.sleep(25)
+
+#finding the file the was downloaded
+list_of_files= glob.glob(r"c:\Users\kcham\Downloads\*")
+latest_file = max(list_of_files, key=os.path.getmtime)
+
+#extracting the incident file to a specific location
+with zipfile.ZipFile(latest_file, mode='r') as archive:
+     archive.extract("Incident.txt", path ='d:projects')
+
+#removing the zip file  
+os.remove(latest_file)
+
+#converting the file into a data frame (*Cateory 2- reading data from an external file, Stretch goals- using pandas to perform data analysis)
+df= pd.read_csv('d:projects/Incident.txt')
+
+#changing date format
+df['year'] =pd.DatetimeIndex(df['CollisionDate']).year
+
+#selecting columns to use 
+useful_columns = [39,22,23,24,]
+df = df[df.columns[useful_columns]]
+
+#chaning the data display
+df = df.groupby(['year']).sum()
+df = df.T
+
+#displaying data (*Category 3)
+with open('str.html', 'w') as f:
+    df.to_html(f)
+ 
+filename = 'str.html'
+webbrowser.open_new_tab(filename)
+plt.figure
+df.plot.line()
+plt.show()
