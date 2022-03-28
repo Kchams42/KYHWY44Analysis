@@ -121,6 +121,7 @@ os.remove(latest_file)
 
 #converting the file into a data frame (*Cateory 2- reading data from an external file, Stretch goals- using pandas to perform data analysis)
 df= pd.read_csv('d:projects/Incident.txt')
+os.remove('d:projects/Incident.txt')
 
 #changing date format
 df['year'] =pd.DatetimeIndex(df['CollisionDate']).year
@@ -131,7 +132,7 @@ df = df[df.columns[useful_columns]]
 
 #chaning the data display
 df = df.groupby(['year']).sum()
-df = df.T
+#df = df.T
 
 #displaying data (*Category 3)
 with open('str.html', 'w') as f:
