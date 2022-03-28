@@ -21,6 +21,8 @@ This project is done in a virutal enviroment. You can find the exact versions of
 2.Line 111 searches for the downloaded file.  The download folder will be specific to your computer, as such you will need to change the path in the parentheses
 3. Line 116 extracts the file to a specific location.  Once again you will need to change this to a valid drive and folder for your computer
 4. Line 122 converts the file into a data frame.  The file name itself will not be change, but the path will need to be changed to the same path used in #3
+5.  This project utilizes Chrome Browser.  As such, if you do not have chrome it will not work properly.  If you do not have chrome you will need to change the service variable
+    on Line 33.
 
 
 The criteria that I met for this project are as follows
@@ -29,3 +31,4 @@ The criteria that I met for this project are as follows
     3. Category 4 - The program should utilize a virtual environment and document library dependencies in a requirements.txt file.
     4. Stretch -  Implement a web scraper
     
+
