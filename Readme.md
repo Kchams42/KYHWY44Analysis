@@ -1,24 +1,31 @@
-I live in Mt. Washington Ky, and the main road here is HWY 44.  HWY 44 is a 2 lane highway that is 70.19 miles long.  About 25 miles are located in Bullitt County.  
-Bulitt county averages 1% population growth for the past 10 years. Before though there were much bigger jumps in population, with 57% in 2010, and 66% in both 1980 and 1970.
-In 2004 there was a study by the state looking at options to improve the HWY, but it proved to be to costly.  As the population in Bullitt County grows though the traffic flow 
-is getting worse each year.  I drive almost exclusively on HWY 44 to get to my work each day, about 10 miles one way.  My average drive time is 20-30 minutes, with 0 stop signs 
-and 1 traffic light.  So my goal is to see if there is a correlation between the increased population growth and the number of accidents.
+This program originally started as a way to look at data for HWY 44 in Bullitt county.  This road is a 2 lane highway and has a lot of traffic, with a lot of accidents.  
+As i worked on the program more, I decided it would be more interesting to be able to look at any road in any county in the state of Kentucy.  Unfortunately the crash databse 
+is only legally required to keep records going back 10 years.  So we will go back to 2013, and see how accidents, including injuries and fatalies have trended in this 10 year 
+range.
+One note of caution with this program, due to the nature of the crash database, there are quite a few pauses in the program to give the databse time to complete its current 
+task. 
 
-For this program you will need to use pip to install:
+
+For this program you will need to install the following modules:
     Pandas
-    Numpy
-    Matplotlib
+    Time
+    Selenium
     webbrowser
+    zipfile
+    glob
 
-This project is done in a virutal enviroment.  
+This project is done in a virutal enviroment. You can find the exact versions of each module in the requirement.txt file
+
+*****IMPORTANT****
+1.The program will download a zip file to your computer, to extract the relevent incident data.  The program will also delete the zip file once the data has been extracted.
+2.Line 111 searches for the downloaded file.  The download folder will be specific to your computer, as such you will need to change the path in the parentheses
+3. Line 116 extracts the file to a specific location.  Once again you will need to change this to a valid drive and folder for your computer
+4. Line 122 converts the file into a data frame.  The file name itself will not be change, but the path will need to be changed to the same path used in #3
+
 
 The criteria that I met for this project are as follows
-    1.Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code
-    2.Read data from an external file, such as text, JSON, CSV, etc, and use that data in your application.
-    3.Visualize data in a graph, chart, or other visual representation of data.
-    4.The program should utilize a virtual environment and document library dependencies in a requirements.txt file.
-
-You can also find a file called Webdata.PK
-
-This program is the begining of an extension of this project that would allow the user to select their own specific county and roadway.   This program utilizes Selenium, and
-I will continue to work on it.
+    1. Category 2 - Read data from an external file, such as text, JSON, CSV, etc, and use that data in your application.
+    2. Category 3 - Visualize data in a graph, chart, or other visual representation of data.
+    3. Category 4 - The program should utilize a virtual environment and document library dependencies in a requirements.txt file.
+    4. Stretch -  Implement a web scraper
+    
