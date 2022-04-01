@@ -23,7 +23,7 @@ This project is done in a virutal enviroment. You can find the exact versions of
 
 1. The program will download a zip file to your computer, to extract the relevent incident data.  The program will also delete the zip file once the data has been extracted.
 
-2. Line 130 searches for the downloaded file.  The download folder will be specific to your computer, as such you will need to change the path in the parentheses
+2. Line 130 searches for the downloaded file.  The download folder will be specific to your computer, as such you will need to change the path in the parentheses(if you are using Linux, remove the r before the path)
 
 3. Line 135 extracts the file to a specific location.  Once again you will need to change this to a valid drive and folder for your computer
 
