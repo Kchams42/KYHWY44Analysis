@@ -11,10 +11,12 @@ For this program you will need to install the following modules:
 	Pandas
     Time
     Selenium
-    webbrowser
-    zipfile
-    glob
-
+    Webbrowser
+    Zipfile
+    Glob
+    OS
+    Matplotlib
+    
 This project is done in a virutal enviroment. You can find the exact versions of each module in the requirement.txt file
 
 *****IMPORTANT****
