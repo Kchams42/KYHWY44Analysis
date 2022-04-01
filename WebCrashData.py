@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 
  
-#setting up the webdriver and url(*Stretch Goal-Using a webscraper*)
+#setting up the webdriver and url(*Stretch Goal-Using a webscraper*, *Category 1-Define 3 functions*)
 class WebScrape():
     global options
     options = Options() 
@@ -119,7 +119,7 @@ def get_file():
 
 #selecting export method
     driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[2]/ul/li[3]/a').click()
-    time.sleep(5)
+    time.sleep(25)
     driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[2]/div/div[2]/div/div[3]/div[2]/div/div/div[2]/div/div/div/div/div[5]/div/input').click()
 
 #exporting the file
