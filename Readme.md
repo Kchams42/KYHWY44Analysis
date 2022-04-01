@@ -47,3 +47,5 @@ The criteria that I met for this project are as follows
 		5. Stretch -  Implement a web scraper
     
 To run the program, you just need to run WebCrashData.py, then fill in the prompted County, and roadway number.
+
+One last note, Some highways have a lot of accidents on them. For example, Shelbyville road (HWY 60) in Jefferson county has over 15,000 accidents.  The database will not generate a usable data set at all after around 5,000 accidents. If you try HWY 60 in Shelby county though, you get a result that is usable. 
