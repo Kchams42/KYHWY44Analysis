@@ -46,4 +46,4 @@ The criteria that I met for this project are as follows
     
 		5. Stretch -  Implement a web scraper
     
-
+To run the program, you just need to run WebCrashData.py, then fill in the prompted County, and roadway number.
